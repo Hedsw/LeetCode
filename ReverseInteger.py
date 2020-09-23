@@ -1,22 +1,18 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        always = 0
-        pm = False # True = - , False = + 
+        flag = False 
+        if x < 0: # False mean Minus and True mean Plus
+            flag = True
         
-        if x < 0:
-            always = abs(x)
-            pm = True 
+        if flag:
+            x *= -1
+        strInt = str(x)[::-1]
+        always = int(strInt)
+        
+        if always > 2**31-1:
+            return 0
+        
+        if flag:
+            return always*(-1)
         else:
-            always = x 
-        
-        always = str(always)[::-1]
-        always = int(always)
-        if always > 2**31 -1:
-            return 0 
-        
-        if pm:
-            always = always*(-1)
-            if always < (-2)**31:
-                return 0
-                    
-        return always
+            return always
