@@ -1,12 +1,15 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        digitLen = len(digits)
+        digitlen = len(digits)
         newNum = 0
-        for i in range(digitLen):
-            newNum += (10**(digitLen-i-1)) * digits[i]
+        
+        for i in range(digitlen):
+            newNum += 10**(digitlen-i-1)*digits[i]
         newNum += 1
-        newStr = str(newNum)
-        temp = []
-        for i in newStr:
-            temp.append(int(i))
-        return temp
+        newstr = str(newNum)
+        res = [] 
+        for i in range(len(newstr)):
+            res.append(int(newstr[i]))
+        
+        return res
+        
