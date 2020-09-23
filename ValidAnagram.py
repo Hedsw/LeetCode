@@ -1,6 +1,5 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        
         s = sorted(s)
         t = sorted(t)
         
@@ -10,5 +9,4 @@ class Solution:
         for i in range(len(s)):
             if s[i] != t[i]:
                 return False
-            
-        return True
+        return True 
