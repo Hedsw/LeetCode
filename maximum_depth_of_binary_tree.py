@@ -15,17 +15,17 @@ class Solution:
         # This is new version
         if not root:
             return 0
-        depth = 0
-        level = [root] if root else []
         
-        while level:
+        array = [root]
+        depth = 0
+        
+        while array:
             depth += 1
             queue = []
-            
-            for i in level:
+            for i in array:
                 if i.left:
                     queue.append(i.left)
                 if i.right:
                     queue.append(i.right)
-                level = queue
+                array = queue
         return depth
