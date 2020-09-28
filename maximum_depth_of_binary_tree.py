@@ -12,7 +12,7 @@ class Solution:
         
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
         '''
-        
+        # This is new version
         if not root:
             return 0
         depth = 0
