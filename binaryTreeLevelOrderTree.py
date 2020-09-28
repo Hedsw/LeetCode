@@ -5,35 +5,35 @@
 #         self.left = left
 #         self.right = right
 
+'''
+if not root:
+    return 
+
+IS SAME WITH BELOW
+
+if root is None 
+    return
+'''
 #DFS
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        
         res = []
-        
-        self.dfs(root, 0, res) # 0 => level
+        self.dfs(root, res, 0)
         return res
     
-    def dfs(self, root, level, res):     
-        if not root:
-            return
+    def dfs(self, root, res, level):
+        if root is None:
+            return 
         
         if len(res) <= level:
             res.append([])
+            print(len(res))
         res[level].append(root.val)
         
-        self.dfs(root.left, level+1, res)
-        self.dfs(root.right, level+1, res)
-        
-        
-        
-        
-        
-        
-        
-        
+        self.dfs(root.left, res, level + 1)
+        self.dfs(root.right, res, level + 1)
         
         
         
