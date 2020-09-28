@@ -8,18 +8,19 @@ class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
         if not root:
             return True
-        return self.symmetric(root.right, root.left)
+        
+        return self.symmetricCheck(root.right, root.left) 
     
-    def symmetric(self, right, left):
+    def symmetricCheck(self, right, left):
         if right is None and left is None:
             return True
-        
         if right is None or left is None:
             return False
-        
-        if right.val == left.val:
-            output = self.symmetric(left.left, right.right)
-            inside = self.symmetric(left.right, right.left)
-            return output and inside
     
-        return False
+        if right.val == left.val:
+            outputValue = self.symmetricCheck(right.right, left.left)
+            inputValue = self.symmetricCheck(right.left, left.right)
+            #print(outputValue and inputValue)
+            return outputValue and inputValue
+        return False 
+        
