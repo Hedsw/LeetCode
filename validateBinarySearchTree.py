@@ -6,21 +6,20 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root):
-        if not root:
+        if root is None:
             return True
+        array = []
+        self.inorder(root, array)
         
-        output = []
-        self.inorder(root, output)
-        
-        for i in range(1, len(output)):
-            if output[i-1] >= output[i]:
+        for i in range(len(array)-1):
+            if array[i] >= array[i+1]:
                 return False
         return True
+    
+    def inorder(self, root, array):
+        if root is None:
+            return 
         
-    def inorder(self, root, output):
-        if not root:
-            return  
-        self.inorder(root.left, output)
-        output.append(root.val)
-        self.inorder(root.right, output)
-        
+        self.inorder(root.left, array)
+        array.append(root.val)
+        self.inorder(root.right, array)
