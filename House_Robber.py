@@ -1,16 +1,20 @@
-
-
-
-
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        evenList = nums[0:len(nums):2]
-        oddList = nums[1:len(nums):2]
+        if len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        if len(nums) == 2:
+            return max(nums[0], nums[1])
         
-        print(sum(evenList))
-        print(sum(oddList))
+        newInt = [0]*len(nums)
         
-        maxEven = sum(evenList)
-        maxOdd = sum(oddList)
+        newInt[0] = nums[0]
+        newInt[1] = max(nums[0], nums[1])
         
-        return max(maxEven, maxOdd)
+        
+        for i in range(2, len(nums)):
+            newInt[i] = max(nums[i] + newInt[i-2], newInt[i-1])
+        
+        return newInt[len(nums)-1]
+    
