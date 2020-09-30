@@ -17,23 +17,24 @@ if root is None
 #DFS
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        if not root:
-            return []
+        if root is None:
+            return []       
         res = []
         self.dfs(root, res, 0)
+        
         return res
-    
+        
     def dfs(self, root, res, level):
         if root is None:
             return 
         
         if len(res) <= level:
             res.append([])
-            print(len(res))
         res[level].append(root.val)
         
         self.dfs(root.left, res, level + 1)
         self.dfs(root.right, res, level + 1)
+        
         
         
         
