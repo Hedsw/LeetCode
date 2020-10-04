@@ -1,19 +1,22 @@
+
+        # Prime Number 는 2 또는 3으로 나눠지는 숫자를 Prime Number라고 함. 
 class Solution:
     def countPrimes(self, n: int) -> int:
-        # Prime Number 는 2 또는 3으로 나눠지는 숫자를 Prime Number라고 함. 
-        if n < 2:
+        if n <= 2:  # corner case
             return 0
-        sieve = [True] * n
-        sieve[0] = 0
-        sieve[1] = 0
-        
-        m = int(n**0.5)
-        for i in range(2, m+1):
-            if sieve[i] == True:
-                for j in range(i+i, n ,i):
-                    sieve[j] = False
-        
-        return sum(sieve)
+        A = [1] * n
+        A[0], A[1] = 0, 0
+        for i in range(2, n):
+            if A[i]:
+                # every i steps: 2*i, 3*i, 4*i ...
+                for j in range(i * 2, n, i):
+                    A[j] = 0  # not a prime
+        return sum(A)        
+        '''
+        for i in range(1,10,2):
+            print(i)
+            
+        '''
 
         #에라토스테네스의 체로 구함 
         '''
