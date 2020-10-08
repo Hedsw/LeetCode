@@ -4,26 +4,28 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         R = len(matrix)
-        C = len(matrix[0])
+        L = len(matrix[0])
         
-        rows, cols = set(), set()
-        
-        # Essentially, we make the rows and columns that are to be made zero
-        
+        setR, setC = set(), set()
+     # Essentially, we make the rows and columns that are to be made zero
+       
         for i in range(R):
-            for j in range(C):
+            for j in range(L):
                 if matrix[i][j] == 0:
-                    rows.add(i)
-                    cols.add(j)
-                    
-        # Iterate over the array once again and using the rows and cols sets, update the elements
+                    setR.add(i)
+                    setC.add(j)
         
+          # Iterate over the array once again and using the rows and cols sets, update the elements
+      
         for i in range(R):
-            for j in range(C):
-                if i in rows or j in cols:
+            for j in range(L):
+                if i in setR or j in setC:
                     matrix[i][j] = 0
-            
-            
-        # Time Complexity = O(M * N) M and N is row and column length 
-        # Space Completixy = O(M + N) 
         
+                
+    # M and N is row length and column length 
+    # Time Complextiy is O(M * N) 
+    # Space Complexity is O(M + N)
+    
+    
+    
