@@ -1,31 +1,21 @@
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        R = len(matrix)
-        L = len(matrix[0])
+        RawLength = len(matrix)
+        ColumnLength = len(matrix[0])
         
-        setR, setC = set(), set()
-     # Essentially, we make the rows and columns that are to be made zero
-       
-        for i in range(R):
-            for j in range(L):
+        setRaw, setCol = set(), set()
+        
+        for i in range(RawLength):
+            for j in range(ColumnLength):
                 if matrix[i][j] == 0:
-                    setR.add(i)
-                    setC.add(j)
+                    setRaw.add(i)
+                    setCol.add(j)
         
-          # Iterate over the array once again and using the rows and cols sets, update the elements
-      
-        for i in range(R):
-            for j in range(L):
-                if i in setR or j in setC:
+        for i in range(RawLength):
+            for j in range(ColumnLength):
+                if i in setRaw or j in setCol:
                     matrix[i][j] = 0
+                    
         
-                
-    # M and N is row length and column length 
-    # Time Complextiy is O(M * N) 
-    # Space Complexity is O(M + N)
-    
-    
-    
+        # Time Complexity = Big oh ->  (M*N) M and N is Raw and Column length
+        # Sapce Completxity is  Big oh- >  M + N
