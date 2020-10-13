@@ -1,20 +1,27 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        longest = 0
-        left, right = 0, 0
-        length = len(s)
+        answer = 0
         sets = set()
+        length = len(s)
+        right, left = 0, 0
         
         while right < length and left < length:
             if s[right] not in sets:
                 sets.add(s[right])
                 right += 1
-                longest = max(longest, right - left)
+                answer = max(answer, right - left)
+                
             else:
                 sets.remove(s[left])
                 left += 1
-        return longest
+        return answer
+                
         
+    # Sliding Window Problem
+    # Time Complexity O(N)
+    # Space Complexity O(k)
+    # [k = length of the longest substring w/o repeating characters]
+
         
     # Sliding Window Problem
     # Time Complexity O(N)
