@@ -5,7 +5,24 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = cur = ListNode(0)
+        carry = 0
         
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            value = carry%10
+            cur.next = ListNode(value)
+            cur = cur.next
+            carry //= 10
+        return dummy.next
+
+        #존나 허무하다.. 위에처럼 풀면 금방 풀린다.. 아래가 내가 푼건데 다이나믹프로그래밍..
+        '''
         # Reverse Order Li L2를 리버스된 것을 되돌려서 Val를 다 합친 다음에.. 합친 숫자를 Reverse 시켜서 새로운 노드에 집어 넣으면 된다..
         nextNode, nextNode2 = 0, 0
         reverseL1, reverseL2 = None, None
@@ -49,3 +66,4 @@ class Solution:
             l1.val = valueList[:-(i+1)]
             l1 = l1.next
         return l1
+        '''
