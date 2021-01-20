@@ -18,10 +18,10 @@ class Solution:
             value = carry%10
             cur.next = ListNode(value)
             cur = cur.next
-            carry //= 10
+            carry //= 10 # 만약 10을 넘어가는 숫자가 있으면,, 그 숫자를 다음 계산할 때 1 더해줌. 
         return dummy.next
 
-        #존나 허무하다.. 위에처럼 풀면 금방 풀린다.. 아래가 내가 푼건데 다이나믹프로그래밍..
+    
         '''
         # Reverse Order Li L2를 리버스된 것을 되돌려서 Val를 다 합친 다음에.. 합친 숫자를 Reverse 시켜서 새로운 노드에 집어 넣으면 된다..
         nextNode, nextNode2 = 0, 0
