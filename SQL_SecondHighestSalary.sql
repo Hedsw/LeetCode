@@ -6,4 +6,4 @@ SELECT
         ORDER BY Salary Desc # Desc - Descending Order의 뜻 
         LIMIT 1 OFFSET 1), 
         NULL
-    ) NULL as SecondHighestSalary
+    ) as SecondHighestSalary
