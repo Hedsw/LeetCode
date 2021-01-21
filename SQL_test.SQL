@@ -263,3 +263,25 @@ SELECT Name FROM Country ORDER BY Name DESC;
 SELECT Name FROM Country ORDER BY Name ASC;
 SELECT Name, Continent FROM Country ORDER BY Continent, Name;
 SELECT Name, Continent, Region FROM Country ORDER BY Continent DESC, Region, Name;
+
+//// 테스트 
+DROP TABLE IF EXISTS booltest;
+CREATE TABLE booltest (a INTEGER, b INTEGER);
+INSERT INTO booltest VALUES (1, 0);
+SELECT * FROM booltest;
+
+
+// < 5 또는 > 3 이런 식으로 범위를 주고 싶을 때 사용 함.. If Else문과 똑같음 
+SELECT 
+    CASE WHEN a < 5 THEN 'true' ELSE 'false' END as boolA,
+    CASE WHEN b THEN 'true' ELSE 'false' END as boolB
+    FROM booltest
+;
+
+// 하나만 특정해서 고를 때 사용하는 것 IF ELSE문과 똑같지만 하나의 값이 맞는지 확인할 때 사용 
+SELECT 
+    CASE a WHEN "1" THEN 'true' ELSE 'false' END as boolA,
+    CASE b WHEN 1 THEN 'true' ELSE 'false' END as boolB
+    FROM booltest
+;
+
