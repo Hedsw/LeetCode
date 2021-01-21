@@ -117,3 +117,149 @@ INSERT INTO test VALUES ('three', 'four', 'five');
 SELECT * FROM test;
 
 ALTER TABLE test ADD e TEXT DEFAULT 'panda';
+
+
+
+PRIMARY KEY를 쓰면, ID 넘버가 자동으로 생성 됨. 
+
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (
+    id INTEGER PRIMARY KEY,
+    a INTEGER,
+    b TEXT
+);
+
+INSERT INTO test (a, b) VALUES ( 10, 'a');
+INSERT INTO test (a, b) VALUES ( 11, 'b');
+INSERT INTO test (a, b) VALUES ( 12, 'c');
+SELECT * FROM test;
+
+
+
+SELECT Name, Continent, Population FROM Country
+    WHERE Population < 100000 OR Population IS NULL ORDER BY Population DESC;
+    
+SELECT Name, Continent, Population FROM Country
+    WHERE Population < 100000 AND Continent = 'Oceania' ORDER BY Population DESC;
+
+// 앞 뒤로 island라는 말이 붙어 있는거 다 고르기
+SELECT Name, Continent, Population FROM Country
+    WHERE Name Like '%island%' ORDER BY Name;
+    
+// ~~ Island로 끝나는 거 고르기
+SELECT Name, Continent, Population FROM Country
+    WHERE Name Like '%island' ORDER BY Name;
+    
+// Island ~~ 로 끝나는 거 고르기 
+SELECT Name, Continent, Population FROM Country
+    WHERE Name Like 'island%' ORDER BY Name;
+
+
+
+// 인구수가 100000 미만이고, 오세아니아 대륙인 것들을 Popluation을 기준으로 디센딩하게 뽑기
+SELECT Name, Continent, Population FROM Country
+    WHERE Population < 100000 AND Continent = 'Oceania' ORDER BY Population DESC;
+
+// Continent 콜럼안에서 유럽과 아시아인 것만 뽑아내기
+SELECT Name, Continent, Population FROM Country
+    WHERE Continent IN ('Europe', 'Asia') ORDER BY Name;
+
+
+
+SELECT Continent FROM Country;
+
+// SELECT DISTINCT는 중복된 거 없애는 것.. 이 예시에서는 Continent에서 중복된 것들 없애는 것 
+SELECT DISTINCT Continent FROM Country;
+
+
+
+//a, b 콜럼 합해서 Test테이블 안에서 중복된거 없이 구하기
+SELECT DISTINCT a,b FROM test;
+// b 콜럼만 따져서 중복된거 없이 하기 
+SELECT DISTINCT a FROM test;
+
+
+DROP TABLE test;
+
+CREATE TABLE test (a INTEGER, b TEXT, c TEXT);
+
+INSERT INTO test VALUES ( 1, 'this', 'Right here!' );
+
+INSERT INTO test (b, c) VALUES (' That', 'Over there!' );
+
+INSERT INTO test DEFAULT VALUES;
+
+INSERT INTO test ( a, b, c) SELECT id, name, description from item;
+
+SELECT * FROM test;
+SELECT * FROM test WHERE a = 1;
+DELETE FROM test WHERE a = 1;
+
+INSERT INTO test(a, b, c) VALUES (0, NULL, '');
+SELECT * FROM test WHERE b IS NULL;
+SELECT * FROM test WHERE c = '';
+
+DROP TABLE IF EXISTS test;
+
+CREATE TABLE test (
+ a INTEGER NOT NULL, 
+ b TEXT NOT NULL,
+ c TEXT 
+);
+
+
+INSERT INTO test VALUES (1, 'this', 'that');
+INSERT INTO test (a,b) VALUES (1, 'two');
+
+SELECT * FROM test;
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (a TEXT UNIQUE NOT NULL, b TEXT NOT NULL, c TEXT DEFAULT 'panda');
+INSERT INTO test (a, b) VALUES (NULL, 'two');
+INSERT INTO test (a, b) VALUES (NULL, 'two');
+SELECT * FROM test;
+
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (a TEXT, b TEXT, c TEXT);
+INSERT INTO test VALUES ('one', 'two', 'three');
+INSERT INTO test VALUES ('two', 'thre', 'four');
+INSERT INTO test VALUES ('three', 'four', 'five');
+UPDATE test SET a = 'change?', b = 'well..', c = 'hacked' WHERE a = 'one';
+SELECT * FROM test;
+
+ALTER TABLE test ADD e TEXT DEFAULT 'panda';
+
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (
+    id INTEGER PRIMARY KEY,
+    a INTEGER,
+    b TEXT
+);
+
+INSERT INTO test (a, b) VALUES ( 10, 'a');
+INSERT INTO test (a, b) VALUES ( 11, 'b');
+INSERT INTO test (a, b) VALUES ( 12, 'c');
+SELECT * FROM test;
+
+
+// SELECT 모음집
+SELECT Name, Continent, Population FROM Country
+    WHERE Population < 100000 OR Population IS NULL ORDER BY Population DESC;
+
+SELECT Continent FROM Country;
+
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (a int, b int);
+INSERT INTO test VALUES (1, 1);
+INSERT INTO test VALUES (2, 1);
+INSERT INTO test VALUES (3, 1);
+INSERT INTO test VALUES (4, 2);
+INSERT INTO test VALUES (2, 2);
+INSERT INTO test VALUES (1, 2);
+SELECT * FROM test;
+
+SELECT Name FROM Country;
+SELECT Name FROM Country ORDER BY Name;
+SELECT Name FROM Country ORDER BY Name DESC;
+SELECT Name FROM Country ORDER BY Name ASC;
+SELECT Name, Continent FROM Country ORDER BY Continent, Name;
+SELECT Name, Continent, Region FROM Country ORDER BY Continent DESC, Region, Name;
