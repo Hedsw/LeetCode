@@ -388,3 +388,47 @@ SELECT COUNT(HeadOfState) FROM Country;
 SELECT HeadOfState FROM Country ORDER BY HeadOfState;
 SELECT * FROM Country;
 SELECT COUNT(DISTINCT HeadOfState) FROM Country;
+
+// Transaction 쓰는 법.. 아주 좋음.
+// 트랜잭션이란? 
+하나의 처리를 여러 단계로 다루는 기능을 트랜잭션(Transaction)이라고 합니다. 
+하나의 처리를 Commit이라는 명령어를 수행하기전 마지막으로 한번 더 확인할 수 있는 기회를 줌으로써 좀더 안정적인 데이터베이스 작업을 가능하게 합니다. 
+트랜잭션의 실행결과를 데이터베이스에 반영하는것을(Commit)이라고 하고 반영하기 전으로 되돌리는것을 롤백(RollBack)이라고 합니다. 
+
+
+DROP TABLE IF EXISTS widgetInventory;
+DROp TABLE IF EXISTS widgetSales;
+
+CREATE TABLE widgetInventory (
+    id INTEGER PRIMARY KEY,
+    description TEXT,
+    onhand INTEGER NOT NULL
+);
+
+CREATE TABLE widgetSales (
+    id INTEGER PRIMARY KEY,
+    inv_id INTEGER,
+    quan INTEGER,
+    price INTEGER
+);
+
+INSERT INTO widgetInventory ( description, onhand ) VALUES ('rock', 25);
+INSERT INTO widgetInventory ( description, onhand ) VALUES ('paper', 21);
+INSERT INTO widgetInventory ( description, onhand ) VALUES ('scissors', 25);
+
+SELECT * FROM widgetInventory;
+SELECT * FROM widgetSales;
+
+
+//TRANSACTION 쓰는 법
+BEGIN TRANSACTION;
+INSERT INTO widgetSales (inv_id, quan, price) VALUES( 1, 5, 500 );
+UPDATE widgetInventory SET onhand = ( onhand - 5 ) WHERE id = 1;
+END TRANSACTION;
+
+
+//롤벡하는법
+BEGIN TRANSACTION;
+INSERT INTO widgetInventory ( description, onhand) VALUES ('toy', 25);
+ROLLBACK;
+SELECT * FROM widgetInventory;
