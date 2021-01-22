@@ -363,7 +363,7 @@ SELECT Region, COUNT(*) AS Count
     GROUP BY Region
     ORDER BY Count DESC, Region
 ;
-
+// GROUP BY는 Aggregate을 실행하기 전에 써야하는 것. 
 // HAVING 은 Agrregate 하려고 씀 
 // WHERE은 하나 특정할 때 씀.
 SELECT a.title AS Album, COUNT(t.track_number) as Tracks
@@ -375,3 +375,16 @@ SELECT a.title AS Album, COUNT(t.track_number) as Tracks
     HAVING Tracks >= 10
     ORDER BY Tracks DESC, Album
 ;
+
+// 요약하는 방법들..
+SELECT COUNT(*) FROM Country;
+SELECT COUNT(Population) FROM Country;
+SELECT AVG(Population) FROM Country;
+SELECT Region, AVG(Population) FROM Country DESC GROUP BY Region;
+SELECT Region, MIN(Population), MAX(Population) FROM Country GROUP BY Region;
+SELECT Region, SUM(Population) FROM Country GROUP BY Region;
+
+SELECT COUNT(HeadOfState) FROM Country;
+SELECT HeadOfState FROM Country ORDER BY HeadOfState;
+SELECT * FROM Country;
+SELECT COUNT(DISTINCT HeadOfState) FROM Country;
