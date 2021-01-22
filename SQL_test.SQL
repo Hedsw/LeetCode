@@ -343,3 +343,35 @@ SELECT 2.5555;
 SELECT ROUND(2.55555, 3); // ROUND UP을 소숫점 3자리까지만 하라는 뜻
 SELECT ROUND(2.55555, 0); // 소숫점 자리 제한 없는 것. 그래서 바로 3이 됨
 SELECT ROUND(2.55555);
+
+
+
+// 시간 바꾸는거..
+SELECT DATETIME('now');
+SELECT DATE('now');
+SELECT TIME('now');
+SELECT DATETIME('now', '+1 day');
+SELECT DATETIME('now', '+3 days');
+SELECT DATETIME('now', '-1 month');
+SELECT DATETIME('now', '+1 year');
+SELECT DATETIME('now', '+3 hours', '+27 minutes', '-1 day', '+3 years');
+
+
+// Region 중복된거 몇개 있는지 셀 때 씀
+SELECT Region, COUNT(*) AS Count
+    FROM Country
+    GROUP BY Region
+    ORDER BY Count DESC, Region
+;
+
+// HAVING 은 Agrregate 하려고 씀 
+// WHERE은 하나 특정할 때 씀.
+SELECT a.title AS Album, COUNT(t.track_number) as Tracks
+    FROM track AS t
+    JOIN album AS a
+        ON a.id = t.album_id
+    WHERE a.artist = 'The Beatles'      
+    GROUP BY a.id
+    HAVING Tracks >= 10
+    ORDER BY Tracks DESC, Album
+;
