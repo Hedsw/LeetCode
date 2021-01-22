@@ -326,3 +326,20 @@ SELECT UPPER('StRiNg') = UPPER('string'); // 1로 출력 됨. 왜냐? 둘 다 �
 SELECT UPPER(Name) FROM City ORDER BY Name; // World 데이터베이스 안에서 City 칼럼안에서 대문자만 출력
 SELECT LOWER(Name) FROM City ORDER BY Name; // 소문자만 출력
 
+
+
+SELECT TYPEOF (1 + 1);
+SELECT TYPEOF (1 + 1.0);
+SELECT TYPEOF ('panda');
+SELECT TYPEOF ('panda' + 'koala');
+
+SELECT 1 / 2;
+SELECT 1.0 / 2;
+SELECT CAST(1 AS REAL) / 2;
+SELECT 17 / 5;
+SELECT 17 / 5, 17 % 5;
+
+SELECT 2.5555;
+SELECT ROUND(2.55555, 3); // ROUND UP을 소숫점 3자리까지만 하라는 뜻
+SELECT ROUND(2.55555, 0); // 소숫점 자리 제한 없는 것. 그래서 바로 3이 됨
+SELECT ROUND(2.55555);
