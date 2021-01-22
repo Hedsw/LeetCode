@@ -432,3 +432,60 @@ BEGIN TRANSACTION;
 INSERT INTO widgetInventory ( description, onhand) VALUES ('toy', 25);
 ROLLBACK;
 SELECT * FROM widgetInventory;
+
+
+//트렌젝션을 쓰면 훨씬 속도가 빨라진다. 
+// A transaction can drastically improve the performance of a set of write operations.
+왜 빠르냐면 트렌젝션은  a number of statements are performed as a unit.
+
+
+CREATE TABLE test (id INTEGER PRIMARY KEY, data TEXT);
+
+BEGIN TRANSACTION;
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+INSERT INTO test ( data ) VALUES ( 'this is a good sized line of text.');
+END TRANSACTION;
+
+SELECT COUNT(*) FROM test
+
+DROP TABLE test;
+
+
+
+//트리거 트리거를 생성하면 테이블에 데이터 추가 및 업데이트 등을 한 경우 자동으로 다른 SQL 문을 실행할 수 있다. 
+예를 들어 테이블의 컬럼 값을 업데이트하면 자동으로 다른 테이블의 컬럼 값을 같은 값으로 업데이트하는 등의 처리가 가능하다. 
+여기에서는 트리거 생성 방법 등에 대해 설명한다.
+출처: https://araikuma.tistory.com/702 [프로그램 개발 지식 공유]
+
+CREATE table product (id integer, name text, price integer);
+CREATE table log (id integer PRIMARY KEY, act, text);
+
+CREATE trigger itrigger INSERT on product 
+begin
+    insert into log(act) values('INSERT Action');
+end
+;
+
+CREATE trigger utrigger UPDATE on product
+begin 
+    Insert into log(act) values('UPDATE Action');
+end
+;
+
+CREATE trigger dtrigger DELETE on product
+begin
+    INSERT into log(act) values('DELETE Action');
+end
+;
+
+INSERT into product values (1,'book', 20000);
+SELECT * FROM product;
+SELECT * FROM log;
+
+UPDATE product set price = 25000 WHERE id = 1;
+DELETE from product WHERE id = 1;
