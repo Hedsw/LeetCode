@@ -311,3 +311,18 @@ SELECT released,
     SUBSTR(released, 9, 2) AS Day
     FROM album ORDER BY released
     ;
+
+// TRIM은 문자를 파싱하고 난 후 쪼갤 때 쓰는 것.. 그래서 LTRIM을 하면 왼쪽 것을 자르는 것
+// RTRIM하면 오른쪽을 자름. 만약 특정 문자를 기준으로 자르고 싶다면 마지막 줄에 있는 것처럼 하면 됨
+SELECT TRIM('    string    ');
+SELECT LTRIM('    string    ');
+SELECT RTRIM('    string    ');
+SELECT RTRIM('.....string....', '.');
+
+
+SELECT 'stRiNg' = 'string'; // 0으로 출력 됨. 왜냐? 같지 않으니까 대소문자 구분됨
+SELECT LOWER('StRiNg') = LOWER('string'); // 1로 출력 됨. 왜냐? 둘 다 소문자로 변경했기 때문
+SELECT UPPER('StRiNg') = UPPER('string'); // 1로 출력 됨. 왜냐? 둘 다 대문자로 변경했기 때문
+SELECT UPPER(Name) FROM City ORDER BY Name; // World 데이터베이스 안에서 City 칼럼안에서 대문자만 출력
+SELECT LOWER(Name) FROM City ORDER BY Name; // 소문자만 출력
+
