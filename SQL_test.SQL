@@ -285,3 +285,29 @@ SELECT
     FROM booltest
 ;
 
+// Sale 테이블을 S라 칭하고, S테이블에서 date, price값을 가져오고, Item 테이블을 I라 칭해서 description과 name을 가져와서 
+// ID 값이 같은 것들을 묶어서 출력한다. 
+SELECT s.id AS sale, s.date, i.name, i.description, s.price
+    FROM sale AS s
+    JOIN item AS i ON s.item_id = i.id
+    ;
+
+//Mulitple로 나눌 때 쓴다
+SELECT c.name AS Cust, c.zip, i.name AS Item, i.description, s.quantity AS Quan, s.price
+    FROM customer AS c
+    LEFT JOIN sale AS s ON s.customer_id = c.id
+    LEFT JOIN item AS i ON s.item_id = i.id
+    ORDER BY CUST, ITEM
+;
+   
+SELECT Name, LENGTH(Name) As Len FROM City ORDER BY Len ASC, Name;
+
+SELECT SUBSTR('1 this string', 6);
+
+// released에 있는 것을 쪼개서 파싱할 때 쓴다
+SELECT released, 
+    SUBSTR(released, 1, 4) AS Year, 
+    SUBSTR(released, 6, 2) AS Month, 
+    SUBSTR(released, 9, 2) AS Day
+    FROM album ORDER BY released
+    ;
