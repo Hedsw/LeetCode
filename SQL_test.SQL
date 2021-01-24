@@ -606,3 +606,25 @@ SELECT DISTINCT E1.Email as Email FROM Person AS E1, Person AS E2
 
 SELECT DISTINCT E1.Email as Email FROM Person AS E1, Person AS E2
     WHERE E1.Email = E2.EMAIL AND E1.Id <> E2.Id
+
+    # Write your MySQL query statement below
+
+SELECT Name as Customers from Customers as Cus
+    LEFT JOIN Orders as O
+    ON Cus.Id = O.CustomerId
+    WHERE O.CustomerId IS NULL;
+
+둘 다 가능! 
+
+SELECT Name as Customers from Customers as C
+    WHERE Id NOT IN (SELECT CustomerId from Orders);
+
+# Write your MySQL query statement below
+
+DELETE b FROM Person a, Person b
+    WHERE a.Email = b.Email AND a.Id < b.Id;
+    
+SELECT W.name, W.population, W.area from World as W
+    WHERE W.area > 3000000 OR W.population > 25000000;
+
+
