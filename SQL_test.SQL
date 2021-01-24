@@ -628,3 +628,9 @@ SELECT W.name, W.population, W.area from World as W
     WHERE W.area > 3000000 OR W.population > 25000000;
 
 
+
+# Write your MySQL query statement below
+
+SELECT * FROM cinema 
+    WHERE cinema.description <>'boring' AND cinema.id % 2 = 1 ORDER BY cinema.rating DESC
+
