@@ -535,3 +535,74 @@ SELECT
         LIMIT 1 OFFSET 1), 
         NULL
     ) as SecondHighestSalary
+
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+DECLARE M INT;
+SET N = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+        Select Distinct Salary 
+        From Employee 
+        Order by Salary Desc 
+        Limit 1 Offset N # OFFSET은 N개의 것은 SKIP하라는 뜻 
+  );
+END
+
+# Select * FROM artists LIMIT 11 OFFSET 9
+# You want to skip the first 9 and then only return 11 (10 through 20) results
+
+
+
+
+SELECT S1.Score, COUNT(S2.Score) AS 'RANK' FROM Scores S1,
+    (SELECT DISTINCT Score FROM Scores) S2
+    WHERE S1.Score <= S2.Score
+    GROUP BY S1.Id
+    ORDER BY S1.Score DESC;
+    
+
+
+SELECT distinct Num as ConsecutiveNums from Logs as l
+    WHERE Num = (Select Num FROM logs WHERE Id = l.Id -1) AND Num = (Select Num FROM logs WHERE Id = l.Id + 1)
+    
+
+SELECT E1.Name as Employee
+    FROM Employee as E1, Employee as E2
+    WHERE E1.ManagerId = E2.Id and E1.Salary > E2.Salary
+
+
+    // DISTINCT를 안 넣으면 a@b.com가 두번 출력됨
+SELECT DISTINCT a.Email FROM Person a JOIN Person b
+        ON a.Email = b.Email
+        WHERE a.Id <> b.Id
+
+/둘다 됨
+SELECT Email from Person  
+    Group By Email
+    Having Count(*) > 1;
+    
+    
+
+
+SELECT DISTINCT a.Email FROM Person a JOIN Person b
+    ON a.Email = b.Email
+    WHERE a.Id <> b.Id
+    
+SELECT Email FROM Person 
+    GROUP BY Email
+    Having Count(*) > 1;
+    
+    GROUP BY Email = EMAIL을 정렬해서 중복 된거 빼고, 정렬 시킨다 그 다음 HAVING Count는 정렬 된 것 중 중복된 갯수가 1개 이상인 것들을 뽑아 내는 것.
+    
+    
+SELECT E1.Email FROM Person E1 JOIN Person E2
+    ON E1.Email = E2.EMAIL
+    WHERE E1.Id <> E2.Id
+    
+SELECT DISTINCT E1.Email as Email FROM Person AS E1, Person AS E2
+    WHERE E1.Email = E2.EMAIL AND E1.Id <> E2.Id
+
+SELECT DISTINCT E1.Email as Email FROM Person AS E1, Person AS E2
+    WHERE E1.Email = E2.EMAIL AND E1.Id <> E2.Id
