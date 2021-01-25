@@ -634,3 +634,26 @@ SELECT W.name, W.population, W.area from World as W
 SELECT * FROM cinema 
     WHERE cinema.description <>'boring' AND cinema.id % 2 = 1 ORDER BY cinema.rating DESC
 
+
+SELECT 
+    CASE
+        WHEN seat.id % 2 <> 0 AND seat.id < (SELECT COUNT(*) FROM seat) THEN seat.id +1 
+        WHEN seat.id % 2 = 0 THEN seat.id - 1
+        ELSE seat.id
+    END AS id,
+    student from seat
+    ORDER BY id ASC;
+    
+# SELECT 하고 CASE 안에 것을 ()안에 묶어서 거기 나온 값을 as id로 명령해줘서 첫 번째 Row, 두 번째 Row는 student로 해준다 
+# 다시말해서.. SELECT (CASE..) as id, student FROM seat ORDER BY id ASC 랑 똑같음 
+# 만약 CASE문 전에 뭔가를 하고 싶다면, student, (CASE..), student FROM seat ORDER BY id ASC 처럼 그 앞에 쓸 거 넣으면 됨
+
+SELECT
+    (CASE 
+    WHEN seat.id % 2 <> 0 AND seat.id < (SELECT COUNT(seat.id) FROM seat) THEN seat.id + 1
+    WHEN seat.id % 2 = 0 AND seat.id < (SELECT COUNT(seat.id) FROM seat) THEN seat.id -1
+    ELSE seat.id 
+    END
+    ) as id,
+    student FROM seat
+    ORDER BY id ASC;
