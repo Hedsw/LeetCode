@@ -657,3 +657,9 @@ SELECT
     ) as id,
     student FROM seat
     ORDER BY id ASC;
+
+UPDATE salary 
+    SET 
+       salary.sex = CASE salary.sex WHEN 'm' THEN 'f' ELSE 'm'
+    END;
+
