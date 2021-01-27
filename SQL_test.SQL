@@ -663,3 +663,35 @@ UPDATE salary
        salary.sex = CASE salary.sex WHEN 'm' THEN 'f' ELSE 'm'
     END;
 
+
+
+# Write your MySQL query statement below
+
+SELECT p.FirstName, p.LastName, a.City, a.State FROM Person AS p
+    LEFT JOIN Address AS a ON a.PersonId = p.PersonId;
+
+
+
+# Write your MySQL query statement below
+SELECT 
+    IFNULL(
+        (SELECT Distinct Salary 
+        From Employee
+        ORDER BY Salary Desc # Desc - Descending Order의 뜻 
+        LIMIT 1 OFFSET 1), 
+        NULL
+    ) as SecondHighestSalary
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  SET N = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT IFNULL((
+          SELECT Distinct Salary FROM Employee 
+          ORDER BY Salary DESC 
+          LIMIT 1 OFFSET N
+      ), NULL)
+      
+  );
+END
