@@ -695,3 +695,28 @@ BEGIN
       
   );
 END
+
+
+# Write your MySQL query statement below
+
+SELECT S1.Score, COUNT(S2.Score) AS 'RANK' FROM Scores S1,
+    (SELECT DISTINCT Score FROM Scores) S2
+    WHERE S1.Score <= S2.Score
+    GROUP BY S1.Id
+    ORDER BY S1.Score DESC;
+    
+SEECT Score,
+    DENSE_RANK() over (ORDER BY score DESC) as 'Rank'
+    FROM Scores
+
+//DENSE_RANK는 중간에 비는 숫자 없이 1 ~ N까지 원하는 순서래도 쭉 써줌
+// RANK는 중간에 비는 숫자가 있음. 예를 들어 4.0 4.0 이 두 번 들어있고 그 다음 3.87 이 있다면
+// DENSE_RANK 는 1 1 2 3 4.. 이렇게 순서가 되고
+// RANK 는 1 1 3 4 5.. 이렇게 됨. 2를 건너뛰고 3이 된다. 그 이유는
+// 11이 두개 있어서 
+
+
+SELECT s1.Score, Count(s2.Score) as 'Rank' FROM Scores S1, (SELECT DISTINCT Score FROM Scores S2) S2
+    WHERE s1.Score <= s2.Score
+    GROUP BY s1.Id
+    ORDER BY s1.Score DESC 
