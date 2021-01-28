@@ -326,7 +326,18 @@ SELECT UPPER('StRiNg') = UPPER('string'); // 1로 출력 됨. 왜냐? 둘 다 �
 SELECT UPPER(Name) FROM City ORDER BY Name; // World 데이터베이스 안에서 City 칼럼안에서 대문자만 출력
 SELECT LOWER(Name) FROM City ORDER BY Name; // 소문자만 출력
 
-
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+       # print(nums[-k:])
+        #print(nums[:-k])
+        nums1 = nums[-k:] + nums[:-k] 
+        
+        return (nums[:-k] + nums[-k:])
 
 SELECT TYPEOF (1 + 1);
 SELECT TYPEOF (1 + 1.0);
