@@ -748,3 +748,43 @@ SELECT Name as Customers FROM Customers
 
 DELETE b FROM Person a, Person b
     WHERE a.Id < b.Id AND a.Email = b.Email
+
+DELETE P2 FROM Person P, Person P2
+    WHERE P.Id < P2.Id AND P.Email = P2.Email
+
+# Write your MySQL query statement below
+
+SELECT W1.id as id FROM Weather W1, Weather W2
+    WHERE W1.Temperature > W2.Temperature AND TO_DAYS(W1.recordDate) = TO_DAYS(W2.recordDate) +1;
+    
+# TO_DAYS를 하는 이유는 Date이라서 그런 것
+# 원래라면 W1.recordDate = W2.recordDate + 1 으로 해도 되지만,
+# 그렇게 했더니 계속 ERROR가 나고, Date만 바꾸려면 TO_DAYS를 붙여서 함 
+
+# Write your MySQL query statement below
+
+SELECT w.name as name, w.population as population, w.area as area
+    FROM World as w
+    WHERE 3000000 < w.area OR 25000000 < w.population
+;
+    
+
+SELECT DISTINCT class FROM courses 
+    GROUP BY class HAVING COUNT(DISTINCT student)>=5;
+// class별로 나누고 그 클레스에 맞는 Student를 카운트하라. 
+
+596번 문제, 197번 문제, 184번 문제, 183번, 181번 문제, 177번 문제 
+
+# Write your MySQL query statement below
+
+SELECT DISTINCT s1.* FROM Stadium as s1, Stadium as s2, Stadium as S3
+    WHERE 
+    ((s1.id + 1 = s2.id AND s1.id + 2 = s3.id) 
+     OR (s1.id -1 = s2.id AND s1.id + 1 = s3.id) 
+     OR (s1.id -2 = s2.id AND s1.id -1 = s3.id))
+     AND s1.people >= 100
+     AND s2.people >= 100
+     AND s3.people >= 100
+     ORDER BY s1.id ASC
+     
+     
