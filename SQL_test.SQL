@@ -720,3 +720,31 @@ SELECT s1.Score, Count(s2.Score) as 'Rank' FROM Scores S1, (SELECT DISTINCT Scor
     WHERE s1.Score <= s2.Score
     GROUP BY s1.Id
     ORDER BY s1.Score DESC 
+
+SELECT DISTINCT Num as ConsecutiveNums  FROM Logs as l
+    WHERE Num = (SELECT Num from Logs WHERE Id = l.Id -1) AND Num = (SELECT Num from Logs WHERE Id = l.Id + 1)
+
+SELECT E1.Name AS Customers FROM Customers AS E1
+    WHERE Id NOT IN (SELECT CustomerId FROM Orders)
+
+
+# Write your MySQL query statement below
+
+SELECT D.Name as Department, E.Name as Employee, E.Salary as Salary 
+    FROM Employee E, Department D
+    WHERE D.Id = E.DepartmentId 
+    AND E.Salary = (SELECT max(Salary) FROM Employee E2 WHERE E2.DepartmentId = D.Id)
+
+SELECT Department.Name as Department, Employee.Name as Employee, Employee.Salary FROM Employee, Department
+    WHERE Department.Id = Employee.DepartmentId AND Employee.Salary = (SELECT max(Salary) FROM Employee WHERE Department.Id = Employee.DepartmentId) 
+    
+
+SELECT DISTINCT E1.Email as Email FROM Person as E1 JOIN Person as E2
+    WHERE E1.Id <> E2.Id AND E1.Email = E2.Email
+    
+SELECT Name as Customers FROM Customers 
+    WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
+
+
+DELETE b FROM Person a, Person b
+    WHERE a.Id < b.Id AND a.Email = b.Email
