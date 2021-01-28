@@ -787,4 +787,18 @@ SELECT DISTINCT s1.* FROM Stadium as s1, Stadium as s2, Stadium as S3
      AND s3.people >= 100
      ORDER BY s1.id ASC
      
-     
+SELECT Distinct s1.id, s1.visit_date, s1.people FROM stadium as s1, stadium s2, stadium s3
+    WHERE ((s1.id + 1 = s2.id AND s1.id + 2= s3.id)
+    OR (s1.id - 1 = s2.id AND s1.id + 1 = s3.id)
+    OR (s1.id - 2 = s2.id AND s1.id - 1 = s3.id))
+    AND s1.people >= 100 
+    AND s2.people >= 100 
+    AND s3.people >= 100
+    ORDER BY s1.id ASC 
+
+
+SELECT id, movie, description, rating FROM cinema
+    WHERE cinema.id % 2 = 1 AND cinema.description <> 'boring'
+    ORDER BY cinema.rating DESC
+    
+         
