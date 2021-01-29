@@ -659,6 +659,12 @@ SELECT
 # 다시말해서.. SELECT (CASE..) as id, student FROM seat ORDER BY id ASC 랑 똑같음 
 # 만약 CASE문 전에 뭔가를 하고 싶다면, student, (CASE..), student FROM seat ORDER BY id ASC 처럼 그 앞에 쓸 거 넣으면 됨
 
+SELECT 
+    CASE
+    WHEN seat.id % 2 <> 0 AND seat.id < (SELECT COUNT(seat.id) FROM seat) THEN seat.id + 1
+    WHEN seat.id % 2 = 0 THEN seat.id - 1
+    ELSE seat.id
+
 SELECT
     (CASE 
     WHEN seat.id % 2 <> 0 AND seat.id < (SELECT COUNT(seat.id) FROM seat) THEN seat.id + 1
@@ -707,8 +713,22 @@ BEGIN
   );
 END
 
+SET N = N - 1
+
 
 # Write your MySQL query statement below
+
+SELECT S1.Score, COUNT(S2.Score) AS 'RANK' FROM Scores S1,
+    (SELECT DISTINCT Score FROM Socres) S2
+    WHERE S1.Score <= S2.Score
+    GROUP BY S1.Id
+    ORDER BY S1.Score DESC
+
+
+SELECT S1.Score COUNT(S2.Score) as 'RANK' FROM Scores S1,
+    (SELECT DISTINCT Score FROM Scores) S2
+
+
 
 SELECT S1.Score, COUNT(S2.Score) AS 'RANK' FROM Scores S1,
     (SELECT DISTINCT Score FROM Scores) S2
@@ -720,22 +740,18 @@ SEECT Score,
     DENSE_RANK() over (ORDER BY score DESC) as 'Rank'
     FROM Scores
 
-//DENSE_RANK는 중간에 비는 숫자 없이 1 ~ N까지 원하는 순서래도 쭉 써줌
+// DENSE_RANK는 중간에 비는 숫자 없이 1 ~ N까지 원하는 순서래도 쭉 써줌
 // RANK는 중간에 비는 숫자가 있음. 예를 들어 4.0 4.0 이 두 번 들어있고 그 다음 3.87 이 있다면
 // DENSE_RANK 는 1 1 2 3 4.. 이렇게 순서가 되고
 // RANK 는 1 1 3 4 5.. 이렇게 됨. 2를 건너뛰고 3이 된다. 그 이유는
 // 11이 두개 있어서 
 
 
-SELECT s1.Score, Count(s2.Score) as 'Rank' FROM Scores S1, (SELECT DISTINCT Score FROM Scores S2) S2
-    WHERE s1.Score <= s2.Score
-    GROUP BY s1.Id
-    ORDER BY s1.Score DESC 
 
 SELECT DISTINCT Num as ConsecutiveNums  FROM Logs as l
     WHERE Num = (SELECT Num from Logs WHERE Id = l.Id -1) AND Num = (SELECT Num from Logs WHERE Id = l.Id + 1)
 
-SELECT E1.Name AS Customers FROM Customers AS E1
+SELECT E1.Name AS Customers FROM Customers E1
     WHERE Id NOT IN (SELECT CustomerId FROM Orders)
 
 
@@ -746,6 +762,10 @@ SELECT D.Name as Department, E.Name as Employee, E.Salary as Salary
     WHERE D.Id = E.DepartmentId 
     AND E.Salary = (SELECT max(Salary) FROM Employee E2 WHERE E2.DepartmentId = D.Id)
 
+
+
+
+
 SELECT Department.Name as Department, Employee.Name as Employee, Employee.Salary FROM Employee, Department
     WHERE Department.Id = Employee.DepartmentId AND Employee.Salary = (SELECT max(Salary) FROM Employee WHERE Department.Id = Employee.DepartmentId) 
     
@@ -755,7 +775,6 @@ SELECT DISTINCT E1.Email as Email FROM Person as E1 JOIN Person as E2
     
 SELECT Name as Customers FROM Customers 
     WHERE Customers.Id NOT IN (SELECT CustomerId FROM Orders)
-
 
 DELETE b FROM Person a, Person b
     WHERE a.Id < b.Id AND a.Email = b.Email
@@ -768,6 +787,7 @@ DELETE P2 FROM Person P, Person P2
 SELECT W1.id as id FROM Weather W1, Weather W2
     WHERE W1.Temperature > W2.Temperature AND TO_DAYS(W1.recordDate) = TO_DAYS(W2.recordDate) +1;
     
+
 # TO_DAYS를 하는 이유는 Date이라서 그런 것
 # 원래라면 W1.recordDate = W2.recordDate + 1 으로 해도 되지만,
 # 그렇게 했더니 계속 ERROR가 나고, Date만 바꾸려면 TO_DAYS를 붙여서 함 
@@ -778,13 +798,11 @@ SELECT w.name as name, w.population as population, w.area as area
     FROM World as w
     WHERE 3000000 < w.area OR 25000000 < w.population
 ;
-    
+
 
 SELECT DISTINCT class FROM courses 
     GROUP BY class HAVING COUNT(DISTINCT student)>=5;
 // class별로 나누고 그 클레스에 맞는 Student를 카운트하라. 
-
-596번 문제, 197번 문제, 184번 문제, 183번, 181번 문제, 177번 문제 
 
 # Write your MySQL query statement below
 
@@ -797,7 +815,9 @@ SELECT DISTINCT s1.* FROM Stadium as s1, Stadium as s2, Stadium as S3
      AND s2.people >= 100
      AND s3.people >= 100
      ORDER BY s1.id ASC
-     
+
+
+
 SELECT Distinct s1.id, s1.visit_date, s1.people FROM stadium as s1, stadium s2, stadium s3
     WHERE ((s1.id + 1 = s2.id AND s1.id + 2= s3.id)
     OR (s1.id - 1 = s2.id AND s1.id + 1 = s3.id)
@@ -812,4 +832,24 @@ SELECT id, movie, description, rating FROM cinema
     WHERE cinema.id % 2 = 1 AND cinema.description <> 'boring'
     ORDER BY cinema.rating DESC
     
-         
+596번 문제, 197번 문제, 184번 문제, 183번, 181번 문제, 177번 문제 
+
+197. Rising Temperature
+SELECT w2.id FROM Weather w1, Weather w2
+    WHERE w1.Temperature < w2.Temperature AND TO_DAYS(w1.recordDate) + 1 = TO_DAYS(w2.recordDate)
+
+178. Rank Scores
+SELECT s1.Score, Count(s2.Score) as 'Rank' FROM Scores S1, (SELECT DISTINCT Score FROM Scores) S2
+    WHERE s1.Score <= s2.Score
+    GROUP BY s1.Id
+    ORDER BY s1.Score DESC 
+
+184. Department Highest Salary
+SELECT D.Name as Department, E.Name as Employee, E.Salary as Salary 
+    FROM Employee E, Department D
+    WHERE D.Id = E.DepartmentId 
+    AND E.Salary = (SELECT max(Salary) FROM Employee E2 WHERE E2.DepartmentId = D.Id)
+
+183. Customers Who Never Order
+SELECT c.Name as Customers FROM Customers c
+    WHERE c.Id NOT IN (SELECT CustomerId FROM Orders)
