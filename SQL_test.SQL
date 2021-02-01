@@ -853,3 +853,36 @@ SELECT D.Name as Department, E.Name as Employee, E.Salary as Salary
 183. Customers Who Never Order
 SELECT c.Name as Customers FROM Customers c
     WHERE c.Id NOT IN (SELECT CustomerId FROM Orders)
+
+177. Nth Highest Salary
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  SET N = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT IFNULL((
+          SELECT Distinct Salary FROM Employee 
+          ORDER BY Employee.Salary DESC
+          Limit 1 OFFSET N
+      ), NULL)
+  );
+END
+
+196. Delete Duplicate Emails
+DELETE P2 FROM Person P, Person P2
+    WHERE P.Id < P2.Id AND P.Email = P2.Email
+
+191. pdate Salary 
+UPDATE salary 
+    SET 
+       salary.sex = CASE salary.sex WHEN 'm' THEN 'f' ELSE 'm'
+    END;
+    
+596. Classes More Than 5 Students
+SELECT class FROM courses
+    GROUP BY courses.class HAVING count(courses.student) >= 5
+
+175. Combine Two Tables
+SELECT p.FirstName, p.LastName, a.City, a.State FROM Person AS p
+    LEFT JOIN Address AS a ON a.PersonId = p.PersonId;
+
