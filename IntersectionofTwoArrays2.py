@@ -6,8 +6,9 @@ class Solution(object):
         :rtype: List[int]
         """
         nums1, nums2 = sorted(nums1), sorted(nums2)
-        pt1 = pt2 = 0
-        res = []
+        result = []
+        
+        pt1, pt2 = 0, 0
         
         while True:
             try:
@@ -16,12 +17,10 @@ class Solution(object):
                 elif nums1[pt1] < nums2[pt2]:
                     pt1 += 1
                 else:
-                    res.append(nums1[pt1])
-                    pt1 += 1
+                    result.append(nums1[pt1])
+                    pt1 += 1 
                     pt2 += 1
-            
             except IndexError:
-                    break
-        return res
-    
-        
+                return result
+        return result
+            
