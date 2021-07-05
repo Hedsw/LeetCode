@@ -35,6 +35,4 @@ class Solution:
         self.dfs(root.left, res, level + 1)
         self.dfs(root.right, res, level + 1)
         
-        
-        
-        
+          
