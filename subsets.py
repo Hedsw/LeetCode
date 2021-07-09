@@ -23,5 +23,3 @@ class Solution(object):
         for i in range(len(nums)):
             self.helper(nums[i+1:], tmp + [nums[i]], ans)
             #self.dfs(nums[i+1:], path+[nums[i]], ret)
-       
-            
