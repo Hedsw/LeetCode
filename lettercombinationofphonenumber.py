@@ -1,4 +1,8 @@
 # BackTracking으로 푸는 문제 
+#Input: digits = "23"
+#Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+
 
 class Solution(object):
     def letterCombinations(self, digits):
