@@ -4,6 +4,9 @@
 # if not left and not right 인 이유..
 # Since elements in each of stack are the same, we can simply express them with a number. For example, left = 3 is like a stacks ["(", "(", "("]
 
+#Input: n = 3
+#Output: ["((()))","(()())","(())()","()(())","()()()"]
+
 class Solution:
 # @param {integer} n
 # @return {string[]}
